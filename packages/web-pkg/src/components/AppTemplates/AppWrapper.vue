@@ -343,7 +343,7 @@ export default defineComponent({
     }
 
     const saveFileTask = useTask(function* () {
-      let newContent = unref(currentContent)
+      const newContent = unref(currentContent)
 
       const headers =
         props.contentType === 'image'
@@ -351,10 +351,6 @@ export default defineComponent({
               'Content-Type': 'application/offset+octet-stream'
             }
           : {}
-
-      if (props.contentType === 'image') {
-        newContent = Buffer.from(newContent, 'base64')
-      }
 
       try {
         const putFileContentsResponse = yield putFileContents(currentFileContext, {
